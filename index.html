@@ -47,13 +47,18 @@
         theme: {
           extend: {
             colors: {
-              ink: "#000000",
+              /* 1bite rebrand 2026 — palette oficial */
+              ink: "#001422" /* Deep Code */,
               paper: "#F4F2EC",
-              mint: "#2EE893",
-              violet: "#6B30E0",
-              coral: "#FF5757",
+              mint: "#08E1F4" /* Cyber Cyan (alias kept for legacy) */,
+              cyan: "#08E1F4",
+              blue: "#086BFC" /* Neon Pulse */,
+              violet: "#AC31FB" /* Synth Wave (brighter) */,
+              pink: "#ED2E97" /* Hyper Pink */,
+              coral: "#FD6648" /* Glitch Coral */,
+              deep: "#001422" /* Deep Code */,
               zinc: "#8B8B8B",
-              "zinc-dark": "#2A2A2A",
+              "zinc-dark": "#1a2530",
             },
             fontFamily: {
               sans: ["Helvetica", "Helvetica Neue", "Arial", "sans-serif"],
@@ -81,21 +86,73 @@
 
     <style>
       :root {
-        --ink: #000;
+        --ink: #001422;
         --white: #fff;
-        --mint: #2ee893;
-        --violet: #6b30e0;
-        --coral: #ff5757;
+        --mint: #08e1f4;
+        --cyan: #08e1f4;
+        --blue: #086bfc;
+        --violet: #ac31fb;
+        --pink: #ed2e97;
+        --coral: #fd6648;
+        --deep: #001422;
         --zinc: #8b8b8b;
-        --zincDark: #2a2a2a;
+        --zincDark: #1a2530;
         --paper: #f4f2ec;
+        --brand-gradient: linear-gradient(
+          90deg,
+          #08e1f4 0%,
+          #086bfc 25%,
+          #ac31fb 50%,
+          #ed2e97 75%,
+          #fd6648 100%
+        );
       }
       html,
       body {
-        background: #000;
+        background: #001422;
         color: #fff;
         font-family: "Helvetica", "Helvetica Neue", Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
+      }
+      .bg-brand-gradient {
+        background-image: var(--brand-gradient);
+      }
+      .text-brand-gradient {
+        background-image: var(--brand-gradient);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .divider-brand-gradient {
+        height: 2px;
+        background-image: var(--brand-gradient);
+        border: 0;
+      }
+      /* Custom scrollbar with brand gradient */
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background:
+          linear-gradient(
+              180deg,
+              #08e1f4 0%,
+              #086bfc 25%,
+              #ac31fb 50%,
+              #ed2e97 75%,
+              #fd6648 100%
+            )
+            0 0 / 100% 240px no-repeat,
+          linear-gradient(180deg, #08e1f4, #fd6648);
+        border-radius: 6px;
+      }
+      * {
+        scrollbar-color: #ac31fb transparent;
+        scrollbar-width: thin;
       }
       body {
         overflow-x: hidden;
@@ -231,7 +288,7 @@
       .case-card {
         position: relative;
         overflow: hidden;
-        background: #0a0a0a;
+        background: #051a2a;
       }
       .case-card .case-img {
         transition:
@@ -267,14 +324,25 @@
         border: 1px solid transparent;
         transition: border-color 320ms;
       }
-      .case-card[data-accent="mint"]:hover .case-border {
-        border-color: var(--mint);
+      .case-card[data-accent="mint"]:hover .case-border,
+      .case-card[data-accent="cyan"]:hover .case-border {
+        border-color: var(--cyan);
       }
       .case-card[data-accent="violet"]:hover .case-border {
         border-color: var(--violet);
       }
       .case-card[data-accent="coral"]:hover .case-border {
         border-color: var(--coral);
+      }
+      .case-card[data-accent="blue"]:hover .case-border {
+        border-color: var(--blue);
+      }
+      .case-card[data-accent="pink"]:hover .case-border {
+        border-color: var(--pink);
+      }
+      /* Hover gradient border for case cards (3-cycle: cyan, violet, coral already covered) */
+      .case-card:hover {
+        box-shadow: 0 8px 32px -12px rgba(8, 107, 252, 0.4);
       }
 
       /* Comparison table */
@@ -325,7 +393,7 @@
         font-weight: 700;
       }
       .cmp tbody tr:hover td {
-        background: #0a0a0a;
+        background: #051a2a;
       }
 
       /* Underline animation for services */
@@ -614,79 +682,37 @@
     </header>
 
     <!-- 1) HERO -->
-    <section
-      id="hero"
-      class="relative min-h-[88vh] flex flex-col justify-between bg-ink overflow-hidden"
-    >
-      <div
-        class="max-w-[1600px] mx-auto w-full px-5 md:px-10 pt-10 md:pt-16 grid grid-cols-12 gap-6"
-      >
-        <!-- Top row meta -->
+    <section id="hero" class="relative h-screen w-full bg-ink overflow-hidden">
+      <h1 class="sr-only">1bite Studio — Concebimos experiencias indelebles</h1>
+      <video
+        class="absolute inset-0 w-full h-full object-cover"
+        src="media/hero.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+      ></video>
+      <!-- Ambient brand glow blobs -->
+      <div aria-hidden class="pointer-events-none absolute inset-0 z-[1]">
         <div
-          class="col-span-12 grid grid-cols-2 md:grid-cols-4 gap-3 text-[11px] uppercase tracking-[0.18em] text-zinc"
-        >
-          <div>EST. 2016</div>
-          <div>17 / 50+ MARCAS</div>
-          <div>DESDE MARACAIBO,VE</div>
-          <div class="md:text-right">SCROLL ↓</div>
-        </div>
-      </div>
-
-      <!-- Wordmark center -->
-      <div
-        class="relative z-10 flex-1 flex flex-col items-center justify-center px-5 md:px-10 py-10 md:py-16"
-      >
-        <h1 class="sr-only">
-          1bite Studio — Concebimos experiencias indelebles
-        </h1>
-
-        <!-- Visual wordmark — image fallback to text -->
-        <div class="w-full max-w-[1500px] mx-auto">
-          <img
-            id="wordmark"
-            src="media/1bite-wordmark.webp"
-            alt="1bite"
-            class="mx-auto w-full max-w-[1500px] select-none pointer-events-none"
-            onerror="
-              this.style.display = 'none';
-              document.getElementById('wordmarkText').style.display = 'block';
-            "
-          />
-          <div
-            id="wordmarkText"
-            class="wordmark-text text-white text-center"
-            style="display: none; font-size: clamp(120px, 22vw, 360px)"
-          >
-            1bite
-          </div>
-        </div>
-
-        <!-- Slogan -->
-        <p
-          class="mt-8 md:mt-10 text-center font-bold tracking-tightest text-white"
-          style="font-size: clamp(20px, 4.4vw, 64px); letter-spacing: -0.04em"
-        >
-          <span id="slogan">CONCEBIMOSEXPERIENCIASINDELEBLES</span>
-        </p>
+          class="absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full blur-3xl opacity-25"
+          style="background: radial-gradient(circle, #086bfc, transparent 70%)"
+        ></div>
         <div
-          class="mt-3 text-center text-zinc text-[11px] uppercase tracking-[0.22em] cursor-blink"
-        >
-          — estudio creativo independiente
-        </div>
+          class="absolute -bottom-40 -right-40 w-[560px] h-[560px] rounded-full blur-3xl opacity-25"
+          style="background: radial-gradient(circle, #ed2e97, transparent 70%)"
+        ></div>
+        <div
+          class="absolute top-1/3 left-1/2 w-[400px] h-[400px] rounded-full blur-3xl opacity-15"
+          style="background: radial-gradient(circle, #ac31fb, transparent 70%)"
+        ></div>
       </div>
-
-      <!-- Bottom row -->
+      <!-- Bottom brand gradient stripe -->
       <div
-        class="max-w-[1600px] mx-auto w-full px-5 md:px-10 pb-8 md:pb-12 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 text-[11px] uppercase tracking-[0.18em] text-zinc"
-      >
-        <div>BRANDING</div>
-        <div>REDES SOCIALES</div>
-        <div>AUDIOVISUAL</div>
-        <div>DESARROLLO WEB</div>
-        <div>DESARROLLO DE APPS</div>
-        <div>CAMPAÑAS Y LANZAMIENTOS</div>
-        <div class="md:text-right text-white">[ V3 / 2026 ]</div>
-      </div>
+        aria-hidden
+        class="absolute inset-x-0 bottom-0 h-[3px] bg-brand-gradient z-[2]"
+      ></div>
     </section>
 
     <!-- 2) FILOSOFÍA -->
@@ -925,7 +951,7 @@
                 style="background: var(--coral)"
               ></div>
             </div>
-            <div class="svc-row" data-color="white">
+            <div class="svc-row" data-color="blue">
               <div>
                 <div class="svc-num">[ 04 / Desarrollo Web ]</div>
                 <div class="svc-name text-white mt-2">DESARROLLO<br />WEB</div>
@@ -960,10 +986,10 @@
               </div>
               <div
                 class="col-span-2 svc-underline"
-                style="background: #ffffff"
+                style="background: var(--blue)"
               ></div>
             </div>
-            <div class="svc-row" data-color="mint">
+            <div class="svc-row" data-color="pink">
               <div>
                 <div class="svc-num">[ 05 / Desarrollo de Apps ]</div>
                 <div class="svc-name text-white mt-2">
@@ -998,10 +1024,10 @@
               </div>
               <div
                 class="col-span-2 svc-underline"
-                style="background: var(--mint)"
+                style="background: var(--pink)"
               ></div>
             </div>
-            <div class="svc-row" data-color="violet">
+            <div class="svc-row" data-color="gradient">
               <div>
                 <div class="svc-num">[ 06 / Campañas y Lanzamientos ]</div>
                 <div class="svc-name text-white mt-2">
@@ -1037,10 +1063,7 @@
                   Estrategia · Producción · Pauta
                 </div>
               </div>
-              <div
-                class="col-span-2 svc-underline"
-                style="background: var(--violet)"
-              ></div>
+              <div class="col-span-2 svc-underline bg-brand-gradient"></div>
             </div>
           </div>
         </div>
